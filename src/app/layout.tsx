@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import { movingDots } from "@/util/motion";
+import connect from "@/util/database";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,11 +20,14 @@ const colors = [
 	'bg-gradient-to-r from-red-300 to-orange-300',
 ];
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+
+    const conn = await connect()
+
     return (
         <html lang="en">
             <body className={`${inter.className} bg-gray-900 relative`}>
