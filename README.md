@@ -24,4 +24,4 @@ If you find encounter any errors or find any bugs, feel free open an [issue](htt
 
 ## License
 
-This project is open source and the repository can be found at <https://github.com/RafaeloxMC/link>. You may modify it as you wish as long as you give credit to the original author [@xvcf](https://xvcf.dev/). You may not sell this software or any modified version of it. You may not claim this project as your own or remove any credits or watermarks from this project. You may not use this project for any illegal, malicious, harmful, unethical or immoral activities. You may not use this project for any activities that may harm yourself or others.
+This project is open source and the repository can be found at <https://github.com/RafaeloxMC/link>. You may modify it as you wish as long as you give credit to the original author [@xvcf](https://xvcf.dev/). You may not sell this software or any modified version of it. You may not claim this project as your own or remove any credits or watermarks from this project. You may not use this project for any illegal, malicious, harmful, unethical or immoral activities.
