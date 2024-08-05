@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# LiNK by @xvcf
+
+Welcome to the official git repo of LiNK, [@xvcf](https://xvcf.dev/)'s link shortener. You can use it to shorten your links and share them with others. You can also use it to track the number of clicks on your links.
+
+Don't expect too much from this project. It's just a small project that I made for fun. I'm not a professional developer, so there may be some bugs or errors in this project. If you find any bugs or errors, feel free to open an [issue](https://github.com/RafaeloxMC/link/issues)
 
 ## Getting Started
 
-First, run the development server:
+First, install all packages, then run the development server:
 
 ```bash
-npm run dev
-# or
+# Install all packages using yarn or any package manager you like
+yarn install
+
+# Run the development server by using the dev script
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+When this is done, you can open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Contributing
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+If you find encounter any errors or find any bugs, feel free open an [issue](https://github.com/RafaeloxMC/link/issues) or a [pull request](https://github.com/RafaeloxMC/link/pulls).
 
-## Learn More
+## License
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is open source and the repository can be found at <https://github.com/RafaeloxMC/link>. You may modify it as you wish as long as you give credit to the original author [@xvcf](https://xvcf.dev/). You may not sell this software or any modified version of it. You may not claim this project as your own or remove any credits or watermarks from this project. You may not use this project for any illegal, malicious, harmful, unethical or immoral activities. You may not use this project for any activities that may harm yourself or others.
