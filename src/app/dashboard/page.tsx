@@ -30,7 +30,7 @@ export default function Dashboard() {
 				<h1 className="text-4xl font-bold text-center mb-6 text-white">Dashboard</h1>
 				<p className="text-lg text-center mb-6 text-white">Welcome to your dashboard</p>
 
-				<div className="flex flex-col w-full">
+				<div className="flex flex-col w-full gap-y-4">
 					<button className="p-3 rounded-full backdrop-blur-lg text-white text-center font-semibold focus:outline-none focus:ring-0">Profile</button>
 					<button className="p-3 rounded-full backdrop-blur-lg text-white text-center font-semibold focus:outline-none focus:ring-0">Settings</button>
 					<button className="p-3 rounded-full backdrop-blur-lg text-white text-center font-semibold focus:outline-none focus:ring-0" onClick={logout}>Logout</button>
