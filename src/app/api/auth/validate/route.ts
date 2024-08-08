@@ -1,6 +1,5 @@
 import User from "@/schemas/User";
 import connect from "@/util/database";
-import { compare } from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
