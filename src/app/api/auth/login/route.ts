@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
 				const res = NextResponse.json({ message: "OK" }, { status: 200 });
 
 				const cookieStore = cookies();
-				const hashedUser = name + ".LNKPW." + (user.password as string);
+				const hashedUser = user.id + ".LNKPW." + (user.password as string);
 
 				cookieStore.set("session", hashedUser);
 				res.headers.append("Set-Cookie", `session=${hashedUser}`);
