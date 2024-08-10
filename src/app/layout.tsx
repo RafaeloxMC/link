@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import dotColors from "@/util/colors";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -8,8 +9,6 @@ export const metadata: Metadata = {
 	title: "Link | xvcf.dev",
 	description: "Link shortener by @xvcf. Made for private use.",
 };
-
-const colors = ["bg-gradient-to-r from-pink-300 to-purple-300", "bg-gradient-to-r from-yellow-300 to-green-300", "bg-gradient-to-r from-blue-300 to-indigo-300", "bg-gradient-to-r from-red-300 to-orange-300"];
 
 export default async function RootLayout({
 	children,

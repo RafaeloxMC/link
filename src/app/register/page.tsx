@@ -5,8 +5,8 @@ import { slideInFromLeft, slideInFromRight, movingDots } from "@/util/motion";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { AuthBox } from "@/components/AuthBox";
-
-const colors = ["bg-gradient-to-r from-pink-300 to-purple-300", "bg-gradient-to-r from-blue-300 to-indigo-300", "bg-gradient-to-r from-red-300 to-orange-300"];
+import dotColors from "@/util/colors";
+import MovingDotsBackground from "@/components/MovingDotsBackground";
 
 export default function Register() {
 	const router = useRouter();
@@ -39,13 +39,8 @@ export default function Register() {
 
 	return (
 		<main className="relative flex items-center justify-center min-h-screen p-6 sm:p-12 select-none overflow-hidden bg-gray-900">
-			<div className="absolute inset-0 z-0 overflow-hidden">
-				{Array.from({ length: 5 }).map((_, i) => (
-					<motion.div key={i} className={`absolute w-96 h-96 rounded-full ${colors[i % colors.length]} opacity-20 backdrop-blur-3xl`} initial="hidden" animate="visible" variants={movingDots(15, i * 0.5) as any} />
-				))}
-			</div>
 
-			<div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-3xl z-10"></div>
+			<MovingDotsBackground />
 
 			<AuthBox>
 				<h1 className="text-4xl font-bold text-center mb-6 text-white drop-shadow-glow_xl">LiNK</h1>

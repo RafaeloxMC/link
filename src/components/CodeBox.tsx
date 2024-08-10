@@ -46,8 +46,8 @@ const CodeBox = () => {
     };
 
     return (
-        <div className="code-box mt-2 mb-2 w-fit" onMouseEnter={handleMouseEnter}>
-            <code className="bg-zinc-900 text-white px-3 py-2 rounded">
+        <div className="code-box mt-2 mb-2 w-fit text-center sm:w-full sm:px-4" onMouseEnter={handleMouseEnter}>
+            <code className="bg-zinc-900 text-white px-3 py-2 rounded block sm:inline-block">
                 {displayedLink || "Enter link:"}
                 {isAnimating && <span className="animate-pulse pl-1 font-bold">_</span>}
             </code>

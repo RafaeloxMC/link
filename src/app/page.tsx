@@ -2,23 +2,17 @@
 import CodeBox from "@/components/CodeBox";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { slideInFromLeft, slideInFromRight, slideInFromTop, fadeInWithDelay, movingDots } from "@/util/motion";
+import { slideInFromLeft, slideInFromRight, slideInFromTop, fadeInWithDelay, movingDots, fadeIn } from "@/util/motion";
 import Footer from "@/components/Footer";
-
-const colors = ["bg-gradient-to-r from-pink-300 to-purple-300", "bg-gradient-to-r from-blue-300 to-indigo-300", "bg-gradient-to-r from-red-300 to-orange-300", "bg-gradient-to-r from-blue-400 to-indigo-400", "bg-gradient-to-r from-blue-500 to-indigo-500"];
+import dotColors from "@/util/colors";
+import MovingDotsBackground from "@/components/MovingDotsBackground";
 
 export default function Home() {
 	const router = useRouter();
 
 	return (
-		<main className="relative flex items-center justify-center min-h-screen p-6 sm:p-8 select-none overflow-hidden bg-gray-900">
-			<div className="absolute inset-0 z-0 overflow-hidden">
-				{Array.from({ length: 5 }).map((_, i) => (
-					<motion.div key={i} className={`absolute w-96 h-96 rounded-full ${colors[i % colors.length]} opacity-20 backdrop-blur-3xl`} initial="hidden" animate="visible" variants={movingDots(15, i * 0.5) as any} />
-				))}
-			</div>
-
-			<div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-3xl z-10"></div>
+		<motion.main className="relative flex items-center justify-center min-h-screen p-6 sm:p-8 select-none overflow-hidden bg-gray-900" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+			<MovingDotsBackground />
 
 			<div className="relative z-20 flex flex-col bg-white bg-opacity-10 backdrop-blur-3xl backdrop-filter rounded-3xl p-8 w-full h-full">
 				<motion.div className="text-center sm:mx-10" initial="hidden" animate="visible" variants={slideInFromTop}>
@@ -38,7 +32,6 @@ export default function Home() {
 					<CodeBox />
 				</motion.div>
 
-				{/* Additional content */}
 				<motion.div className="mt-12 sm:mt-20 sm:ml-10 sm:mr-10" initial="hidden" animate="visible" variants={fadeInWithDelay(0.9)}>
 					<h2 className="text-4xl sm:text-6xl font-bold text-white text-center">Why Choose LiNK?</h2>
 					<div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-6 text-white">
@@ -71,6 +64,6 @@ export default function Home() {
 				</motion.div>
 				<Footer />
 			</div>
-		</main>
+		</motion.main>
 	);
 }

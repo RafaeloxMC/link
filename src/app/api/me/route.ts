@@ -9,14 +9,13 @@ export async function GET(request: NextRequest) {
 	await connect();
 
 	const cookieStorage = cookies();
-
 	const token = cookieStorage.get("session")?.value as string;
 
 	return await axios
 		.post(new URL("/api/auth/validate", request.nextUrl.origin).toString(), { token: token })
 		.then(async (response) => {
 			if (response.status !== 200) {
-				return NextResponse.json({ status: 401, body: "Unauthorized" });
+				return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 			} else {
 				return await User.findOne({ id: token.split(".LNKPW.")[0] }).then(async (user) => {
 					return await Link.find({ owner: user.id }).then(async (links) => {
@@ -32,12 +31,12 @@ export async function GET(request: NextRequest) {
 									createdAt: link.createdAt,
 								};
 							}),
-						});
+						}, { status: 200 });
 					});
 				});
 			}
 		})
 		.catch((error) => {
-			return NextResponse.json({ status: 401, body: "Unauthorized" });
+			return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 		});
 }

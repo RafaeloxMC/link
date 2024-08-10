@@ -49,8 +49,18 @@ export const fadeInWithDelay = (delay: number) => ({
 	},
 });
 
+export const fadeIn = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: {
+			duration: 0.5,
+		},
+	},
+};
+
 export const movingDots = (duration: number, delay: number) => {
-	if (typeof window !== 'undefined') {
+	if (typeof window !== "undefined") {
 		return {
 			hidden: { opacity: 0, x: 0, y: 0 },
 			visible: {
