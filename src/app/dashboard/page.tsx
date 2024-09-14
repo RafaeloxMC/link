@@ -190,13 +190,13 @@ export default function Dashboard() {
 								<label className="block text-white text-sm font-bold mb-2" htmlFor="shortLink">
 									Your LiNK name
 								</label>
-								<input id="shortLink" type="text" value={modalShortLink} onChange={(e) => setModalShortLink(e.target.value)} className="w-full mb-4 p-3 rounded-full text-center border border-none focus:outline-none focus:ring-transparent text-white bg-transparent backdrop-blur-lg" />
+								<input id="shortLink" type="text" value={modalShortLink} onChange={(e) => setModalShortLink(e.target.value)} className="w-full mb-4 p-3 rounded-full text-center border border-none focus:outline-none focus:ring-transparent text-white bg-white bg-opacity-10" />
 							</div>
 							<div className="mb-4">
 								<label className="block text-white text-sm font-bold mb-2" htmlFor="longLink">
 									The target URL
 								</label>
-								<input id="longLink" type="text" value={modalLongLink} onChange={(e) => setModalLongLink(e.target.value)} className="w-full mb-4 p-3 rounded-full text-center border border-none focus:outline-none text-white bg-transparent backdrop-blur-lg" />
+								<input id="longLink" type="text" value={modalLongLink} onChange={(e) => setModalLongLink(e.target.value)} className="w-full mb-4 p-3 rounded-full text-center border border-none focus:outline-none focus:ring-transparent text-white bg-white bg-opacity-10" />
 							</div>
 							{modalError && <p className="text-red-500 text-center mb-6 -mt-2">{modalError}</p>}
 							<div className="flex flex-row gap-4 items-center justify-between">

@@ -1,27 +1,28 @@
-"use client";
-import React, { useMemo } from "react";
-import { motion } from "framer-motion";
 import dotColors from "@/util/colors";
 import { movingDots } from "@/util/motion";
+import { motion } from "framer-motion";
+import { useMemo } from "react";
 
-const colors = dotColors();
-
-const MovingDotsBackground: React.FC = () => {
-	const movingDotsBackground = useMemo(
-		() => (
+export default function MovingDotsBackground() {
+	return useMemo(() => {
+		return (
 			<div>
 				<div className="absolute inset-0 z-0 overflow-hidden">
-					{Array.from({ length: 5 }).map((_, i) => {
-						return <motion.div key={i} className={`absolute w-96 h-96 rounded-full ${colors[i % colors.length]} opacity-20 backdrop-blur-3xl`} initial="hidden" animate="visible" variants={movingDots(15, i * 0.5) as any} />;
-					})}
+					{Array.from({ length: 5 }).map((_, i) => (
+						<motion.div
+							key={i}
+							className={`absolute w-[75vh] h-[75vh] rounded-full ${
+								dotColors()[i % dotColors().length]
+							} backdrop-blur-3xl`}
+							initial="hidden"
+							animate="visible"
+							variants={movingDots(15, i * 0.5) as any}
+						/>
+					))}
 				</div>
-				<div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-3xl z-10"></div>
+	
+				<div className="absolute inset-0 z-10 backdrop-blur-xl" />
 			</div>
-		),
-		[],
-	);
-
-	return movingDotsBackground;
-};
-
-export default MovingDotsBackground;
+		);
+	}, [])
+}

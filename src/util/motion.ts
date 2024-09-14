@@ -64,7 +64,7 @@ export const movingDots = (duration: number, delay: number) => {
 		return {
 			hidden: { opacity: 0, x: 0, y: 0 },
 			visible: {
-				opacity: 1,
+				opacity: 0.75,
 				x: [Math.random() * window.innerWidth, Math.random() * window.innerWidth - 50],
 				y: [Math.random() * window.innerHeight, Math.random() * window.innerHeight - 50],
 				transition: {
@@ -79,7 +79,7 @@ export const movingDots = (duration: number, delay: number) => {
 		return {
 			hidden: { opacity: 0, x: 0, y: 0 },
 			visible: {
-				opacity: 1,
+				opacity: 0.75,
 				x: [0, 0],
 				y: [0, 0],
 				transition: {
