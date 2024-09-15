@@ -122,7 +122,7 @@ export default function Dashboard() {
 				<div
 					className={`lg:block fixed lg:static ${
 						isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-					} lg:translate-x-0 transition-transform duration-300 ease-in-out w-full lg:w-1/4 bg-white lg:bg-opacity-5 bg-opacity-20 backdrop-blur-xl lg:rounded-3xl flex flex-col p-4 top-0 left-0 h-screen lg:h-auto z-40 overflow-y-auto`}>
+					} lg:translate-x-0 transition-transform duration-300 ease-in-out w-full lg:w-1/4 bg-white lg:bg-opacity-5 bg-opacity-15 backdrop-blur-xl lg:rounded-3xl flex flex-col p-4 top-0 left-0 h-screen lg:h-auto z-40 overflow-y-auto`}>
 					<h1 className="text-4xl text-white font-bold mb-4 text-center">
 						Your LiNKs
 					</h1>
