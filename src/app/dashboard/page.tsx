@@ -37,7 +37,7 @@ export default function Dashboard() {
 			setLinks(response.data.links);
 			setLinksLoaded(true);
 		} catch (error) {
-			console.error("Error fetching links:", error);
+			console.error("Error fetching LiNKs:", error);
 		}
 	}
 
@@ -66,7 +66,7 @@ export default function Dashboard() {
 			setTotalClicks(0);
 			setLastClick("");
 		} catch (error) {
-			console.error("Error deleting link:", error);
+			console.error("Error deleting LiNK:", error);
 		}
 	}
 
@@ -84,7 +84,7 @@ export default function Dashboard() {
 			return setModalError("Please fill out the required information!");
 		const allowedRegex = /^[a-zA-Z0-9-_]+$/;
 		if (!allowedRegex.test(modalShortLink))
-			return setModalError("Invalid characters in link name!");
+			return setModalError("Invalid characters in LiNK name!");
 		if (modalShortLink.length > 20)
 			return setModalError("LiNK too long! (> 20 characters)");
 		try {
@@ -120,13 +120,13 @@ export default function Dashboard() {
 			<div className="relative z-20 flex w-full h-screen p-4 gap-4">
 				{/* Sidebar (Hidden on mobile, visible on large screens) */}
 				<div
-					className={` lg:block fixed lg:static ${
+					className={`lg:block fixed lg:static ${
 						isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-					} lg:translate-x-0 transition-transform duration-300 ease-in-out w-full lg:w-1/4 bg-white lg:bg-opacity-5 bg-opacity-20 backdrop-blur-xl lg:rounded-3xl flex flex-col p-4 top-0 left-0 h-screen lg:h-auto z-40`}>
+					} lg:translate-x-0 transition-transform duration-300 ease-in-out w-full lg:w-1/4 bg-white lg:bg-opacity-5 bg-opacity-20 backdrop-blur-xl lg:rounded-3xl flex flex-col p-4 top-0 left-0 h-screen lg:h-auto z-40 overflow-y-auto`}>
 					<h1 className="text-4xl text-white font-bold mb-4 text-center">
 						Your LiNKs
 					</h1>
-					<div className="h-full flex flex-col justify-start gap-4">
+					<div className="flex-grow flex flex-col justify-start gap-4">
 						{linksLoaded ? (
 							links && links.length > 0 ? (
 								links.map((link) => (
@@ -138,19 +138,21 @@ export default function Dashboard() {
 											setIsSidebarOpen(false);
 										}}>
 										{link.id} -{" "}
-										{link.url.length > 20
+										{link.url
+											.replace("https://", "")
+											.replace("http://", "0").length > 20
 											? link.url
 													.replace("https://", "")
-													.replace("http://", "0")
+													.replace("http://", "")
 													.slice(0, 20) + "..."
 											: link.url
 													.replace("https://", "")
-													.replace("http://", "0")}
+													.replace("http://", "")}
 									</button>
 								))
 							) : (
 								<p className="text-center text-xl mt-2">
-									No links found!
+									No LiNKs found!
 								</p>
 							)
 						) : (
@@ -161,9 +163,9 @@ export default function Dashboard() {
 					</div>
 					<hr className="ml-2 mr-2 rounded-full my-4 border-gray-600" />
 					<button
-						className="w-full p-2 text-white bg-white bg-opacity-20 rounded-3xl hover:bg-opacity-95 transition duration-300 shadow-lg transform hover:scale-105"
+						className="w-full p-2 text-white bg-white bg-opacity-20 rounded-3xl hover:bg-opacity-45 transition duration-300 shadow-lg"
 						onClick={() => setShowModal(true)}>
-						Create new link
+						Create new LiNK
 					</button>
 				</div>
 
@@ -184,13 +186,13 @@ export default function Dashboard() {
 					</div>
 					<ContentBox className="w-full h-full min-w-full max-w-full flex flex-col justify-between p-6 bg-gray-800 bg-opacity-10 rounded-2xl shadow-lg">
 						<h1 className="text-white text-3xl mb-2 border-b border-gray-600 pb-2 w-full">
-							Link Information
+							LiNK Information
 						</h1>
 						{isCurrentValid() ? (
 							<div className="h-full w-full min-w-full flex flex-col">
 								<div className="h-full flex flex-col gap-2 flex-grow">
 									<p className="text-gray-300">
-										Short link:{" "}
+										Short LiNK:{" "}
 										<span
 											className="text-white cursor-pointer hover:underline"
 											onClick={() =>
@@ -225,7 +227,7 @@ export default function Dashboard() {
 								<div className="border-t border-gray-600 pt-2 w-full mt-auto">
 									<div className="gap-2 w-full">
 										<button
-											className="w-full p-2 text-white bg-red-500 rounded-3xl hover:bg-opacity-75 backdrop-blur-lg bg-opacity-50"
+											className="w-full p-2 text-white bg-red-500 rounded-3xl hover:bg-opacity-75 backdrop-blur-lg bg-opacity-50 transition duration-300"
 											onClick={() => deleteLink()}>
 											Delete
 										</button>
@@ -234,13 +236,13 @@ export default function Dashboard() {
 							</div>
 						) : (
 							<p className="text-left text-xl mt-2">
-								Select a link to view information!
+								Select a LiNK to view information!
 							</p>
 						)}
 					</ContentBox>
 					<ContentBox className="w-full h-full min-w-full max-w-full flex flex-col justify-start p-6 bg-gray-800 bg-opacity-10 rounded-2xl shadow-lg items-start">
 						<h1 className="text-white text-3xl mb-2 border-b border-gray-600 pb-2 w-full">
-							Link Data
+							LiNK Data
 						</h1>
 						{isCurrentValid() ? (
 							<div className="h-full w-full">
@@ -265,7 +267,7 @@ export default function Dashboard() {
 							</div>
 						) : (
 							<p className="text-left text-xl mt-2">
-								Select a link to view data!
+								Select a LiNK to view data!
 							</p>
 						)}
 					</ContentBox>
@@ -318,7 +320,7 @@ export default function Dashboard() {
 							<div className="flex flex-row gap-4 items-center justify-between">
 								<button
 									type="button"
-									className="text-white p-2 w-full bg-gray-800 bg-opacity-50 rounded-3xl hover:bg-opacity-75"
+									className="w-full p-2 text-white bg-white bg-opacity-20 rounded-3xl hover:bg-opacity-45 transition duration-300 shadow-lg"
 									onClick={() => {
 										clearModal();
 									}}>
@@ -326,7 +328,7 @@ export default function Dashboard() {
 								</button>
 								<button
 									type="submit"
-									className="text-white p-2 w-full bg-gray-800 bg-opacity-50 rounded-3xl hover:bg-opacity-75">
+									className="w-full p-2 text-white bg-white bg-opacity-20 rounded-3xl hover:bg-opacity-45 transition duration-300 shadow-lg">
 									Create
 								</button>
 							</div>
