@@ -4,7 +4,7 @@ import MovingDotsBackground from "@/components/MovingDotsBackground";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa"; // Import icons for the hamburger menu
+import { FaBars, FaTimes } from "react-icons/fa";
 
 interface Link {
 	id: string;
@@ -171,15 +171,15 @@ export default function Dashboard() {
 
 				{/* Main Content */}
 				<div className="lg:w-3/4 w-full h-full flex flex-col items-center justify-center gap-5">
-					{isSidebarOpen && (
-						<div
-							className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
-							onClick={() => setIsSidebarOpen(false)}></div>
-					)}
 					{/* Hamburger Menu */}
-					<div className="lg:hidden relative items-start justify-start z-50 right-0 ml-auto">
+					<div className="w-full lg:hidden relative items-start justify-start right-0 ml-auto flex flex-row">
+						<div className="w-full h-full p-2 mr-2 bg-white bg-opacity-15 rounded-3xl">
+							<h1 className="text-xl font-bold text-center">
+								LiNK by @xvcf
+							</h1>
+						</div>
 						<button
-							className="text-white text-3xl bg-white bg-opacity-10 rounded-full p-2 focus:outline-none transition-transform duration-300 ease-in-out transform hover:scale-110"
+							className="text-white text-3xl bg-white bg-opacity-10 rounded-full p-2 focus:outline-none transition-transform duration-300 ease-in-out transform hover:scale-110 z-50"
 							onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
 							{isSidebarOpen ? <FaTimes /> : <FaBars />}
 						</button>
