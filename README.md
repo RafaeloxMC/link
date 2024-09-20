@@ -1,5 +1,7 @@
 # LiNK by @xvcf
 
+[![Node.js CI](https://github.com/RafaeloxMC/link/actions/workflows/node.js.yml/badge.svg)](https://github.com/RafaeloxMC/link/actions/workflows/node.js.yml) [![CodeQL](https://github.com/RafaeloxMC/link/actions/workflows/codeql.yml/badge.svg)](https://github.com/RafaeloxMC/link/actions/workflows/codeql.yml)
+
 Welcome to the official git repo of LiNK, [@xvcf](https://xvcf.dev/)'s link shortener. You can use it to shorten your links and share them with others. You can also use it to track the number of clicks on your links.
 
 Don't expect too much from this project. It's just a small project that I made for fun. I'm not a professional developer, so there may be some bugs or errors in this project. If you find any bugs or errors, feel free to open an [issue](https://github.com/RafaeloxMC/link/issues)
