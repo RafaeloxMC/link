@@ -13,6 +13,10 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+
+    secrets:
+      MONGO_URI: ${{ secrets.MONGO_URI }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
     
     strategy:
       matrix:
@@ -22,10 +26,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
-      env:
-        MONGO_URI: ${{ secrets.MONGO_URI }}
-        JWT_SECRET: ${{ secrets.JWT_SECRET }}
-      secrets: inherit
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
