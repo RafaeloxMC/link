@@ -4,7 +4,13 @@ import MovingDotsBackground from "@/components/MovingDotsBackground";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaCog, FaTimes } from "react-icons/fa";
+import { motion } from "framer-motion";
+import {
+	slideInFromLeft,
+	slideInFromRight,
+	slideInFromTop,
+} from "@/util/motion";
 
 interface Link {
 	id: string;
@@ -27,7 +33,12 @@ export default function Dashboard() {
 	const [modalLongLink, setModalLongLink] = useState<string>("");
 	const [modalShortLink, setModalShortLink] = useState<string>("");
 	const [modalError, setModalError] = useState<string | null>(null);
-	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false); // For managing sidebar toggle on mobile
+	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+	const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+	const [lastRefresh, setLastRefresh] = useState<number>(0);
+	const [refreshingText, setRefreshingText] =
+		useState<string>("Refresh Data");
+	const [onRefeshCooldown, setOnRefreshCooldown] = useState<boolean>(false);
 
 	async function fetchLinks() {
 		try {
@@ -36,6 +47,8 @@ export default function Dashboard() {
 			});
 			setLinks(response.data.links);
 			setLinksLoaded(true);
+			setRefreshingText("Refresh Data");
+			return response.data.links;
 		} catch (error) {
 			console.error("Error fetching LiNKs:", error);
 		}
@@ -50,7 +63,11 @@ export default function Dashboard() {
 			shortLink !== "" &&
 			longLink !== "" &&
 			created !== "" &&
-			totalClicks !== undefined
+			totalClicks !== undefined &&
+			shortLink == links.find((link) => link.id === shortLink)?.id &&
+			longLink == links.find((link) => link.id === shortLink)?.url &&
+			created == links.find((link) => link.id === shortLink)?.createdAt &&
+			totalClicks == links.find((link) => link.id === shortLink)?.clicks
 		);
 	}
 
@@ -71,11 +88,11 @@ export default function Dashboard() {
 	}
 
 	async function setData(link: Link) {
-		setShortLink(link.id);
-		setLongLink(link.url);
-		setCreated(link.createdAt);
-		setTotalClicks(link.clicks);
-		setLastClick(link.lastClick);
+		setShortLink(link.id || "No ID");
+		setLongLink(link.url || "No URL");
+		setCreated(link.createdAt || "No date");
+		setTotalClicks(link.clicks || 0);
+		setLastClick(link.lastClick || "No date");
 	}
 
 	const handleCreateNewLink = async (event: React.FormEvent) => {
@@ -111,6 +128,22 @@ export default function Dashboard() {
 		setModalLongLink("");
 		setModalError(null);
 		setShowModal(false);
+	}
+
+	async function refreshData() {
+		if (Date.now() - lastRefresh > 5000) {
+			setLastRefresh(Date.now());
+			setRefreshingText("Refreshing Data...");
+			setLinksLoaded(false);
+			await fetchLinks().then((fetched) => {
+				setRefreshingText("Refresh Data");
+				setOnRefreshCooldown(true);
+				setData(
+					fetched.find((curr: Link) => curr.id === shortLink) as Link
+				);
+				setTimeout(() => setOnRefreshCooldown(false), 5000);
+			});
+		}
 	}
 
 	return (
@@ -172,19 +205,28 @@ export default function Dashboard() {
 				{/* Main Content */}
 				<div className="lg:w-3/4 w-full h-full flex flex-col items-center justify-center gap-5">
 					{/* Hamburger Menu */}
-					<div className="w-full lg:hidden relative items-start justify-start right-0 ml-auto flex flex-row">
-						<div className="w-full h-full p-2 mr-2 bg-white bg-opacity-15 rounded-3xl">
+					<motion.div
+						className="w-full relative items-start justify-start right-0 ml-auto flex flex-row"
+						initial="hidden"
+						animate="visible"
+						variants={slideInFromTop}>
+						<button
+							className="lg:hidden text-white text-3xl mr-2 bg-white bg-opacity-10 rounded-full p-2 focus:outline-none transition-transform duration-300 ease-in-out transform hover:scale-110 z-50"
+							onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+							{isSidebarOpen ? <FaTimes /> : <FaBars />}
+						</button>
+						<div className="w-full h-full p-2 bg-white bg-opacity-10 rounded-3xl">
 							<h1 className="text-xl font-bold text-center">
 								LiNK by @xvcf
 							</h1>
 						</div>
 						<button
-							className="text-white text-3xl bg-white bg-opacity-10 rounded-full p-2 focus:outline-none transition-transform duration-300 ease-in-out transform hover:scale-110 z-50"
-							onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-							{isSidebarOpen ? <FaTimes /> : <FaBars />}
+							className="text-white text-3xl ml-2 bg-white bg-opacity-10 rounded-full p-2 focus:outline-none transition-transform duration-300 ease-in-out transform hover:scale-110 z-50"
+							onClick={() => setIsSettingsOpen(true)}>
+							<FaCog />
 						</button>
-					</div>
-					<ContentBox className="w-full h-full min-w-full max-w-full flex flex-col justify-between p-6 bg-gray-800 bg-opacity-10 rounded-2xl shadow-lg">
+					</motion.div>
+					<ContentBox className="w-full h-full min-w-full max-w-full flex flex-col justify-between p-6 bg-gray-800 bg-opacity-10 rounded-2xl shadow-lg" variants={window.innerWidth >= 1024 ? slideInFromRight(1) : slideInFromLeft(1)}>
 						<h1 className="text-white text-3xl mb-2 border-b border-gray-600 pb-2 w-full">
 							LiNK Information
 						</h1>
@@ -224,7 +266,7 @@ export default function Dashboard() {
 										</span>
 									</p>
 								</div>
-								<div className="border-t border-gray-600 pt-2 w-full mt-auto">
+								<div className="border-t border-gray-600 pt-2 w-full my-2">
 									<div className="gap-2 w-full">
 										<button
 											className="w-full p-2 text-white bg-red-500 rounded-3xl hover:bg-opacity-75 backdrop-blur-lg bg-opacity-50 transition duration-300"
@@ -235,12 +277,12 @@ export default function Dashboard() {
 								</div>
 							</div>
 						) : (
-							<p className="text-left text-xl mt-2">
+							<p className="w-full text-left text-xl mt-2">
 								Select a LiNK to view information!
 							</p>
 						)}
 					</ContentBox>
-					<ContentBox className="w-full h-full min-w-full max-w-full flex flex-col justify-start p-6 bg-gray-800 bg-opacity-10 rounded-2xl shadow-lg items-start">
+					<ContentBox className="w-full h-full min-w-full max-w-full flex flex-col justify-start p-6 bg-gray-800 bg-opacity-10 rounded-2xl shadow-lg items-start" variants={slideInFromRight(1)}>
 						<h1 className="text-white text-3xl mb-2 border-b border-gray-600 pb-2 w-full">
 							LiNK Data
 						</h1>
@@ -263,10 +305,35 @@ export default function Dashboard() {
 												  ).toLocaleString()}
 										</span>
 									</p>
+									<p className="text-gray-300">
+										Clicks per day:{" "}
+										<span className="text-white">
+											{(
+												totalClicks /
+												((Date.now() -
+													new Date(
+														created
+													).getTime()) /
+													86400000)
+											).toFixed(3)}
+										</span>
+									</p>
+								</div>
+								<div className="border-t border-gray-600 pt-2 my-2 w-full">
+									<div className="gap-2 w-full">
+										<button
+											className={`my-1 w-full p-2 text-white bg-blue-500 disabled:bg-gray-500 rounded-3xl hover:bg-opacity-75 backdrop-blur-lg bg-opacity-50 transition duration-300`}
+											disabled={onRefeshCooldown}
+											onClick={async () =>
+												await refreshData()
+											}>
+											{refreshingText}
+										</button>
+									</div>
 								</div>
 							</div>
 						) : (
-							<p className="text-left text-xl mt-2">
+							<p className="w-full text-left text-xl mt-2">
 								Select a LiNK to view data!
 							</p>
 						)}
@@ -276,8 +343,12 @@ export default function Dashboard() {
 
 			{/* Modal for creating new links */}
 			{showModal && (
-				<div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-					<div className="bg-white bg-opacity-10 rounded-3xl p-6 w-full lg:w-1/3 backdrop-blur-xl">
+				<div
+					className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-50 p-4"
+					onClick={() => setShowModal(false)}>
+					<div
+						className="bg-white bg-opacity-10 rounded-3xl p-6 w-full lg:w-1/3 backdrop-blur-xl"
+						onClick={(e) => e.stopPropagation()}>
 						<h2 className="text-2xl mb-4">Create New LiNK</h2>
 						<form onSubmit={handleCreateNewLink}>
 							<div className="mb-4">
@@ -334,6 +405,33 @@ export default function Dashboard() {
 							</div>
 						</form>
 					</div>
+					<p className="text-white mt-4">Click anywhere to close</p>
+				</div>
+			)}
+			{isSettingsOpen && (
+				<div
+					className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm p-4"
+					onClick={() => setIsSettingsOpen(false)}>
+					<div
+						className="bg-white bg-opacity-20 rounded-3xl p-6 w-full lg:w-1/3 backdrop-blur-xl"
+						onClick={(e) => e.stopPropagation()}>
+						<h2 className="text-2xl mb-4">Settings</h2>
+						<p className="text-white mb-2">Manage your account</p>
+						{/* TODO: implement username and password change */}
+						<div className="flex flex-col gap-4">
+							<button
+								className="w-full p-2 text-white bg-red-500 rounded-3xl hover:bg-opacity-75 backdrop-blur-lg bg-opacity-50 transition duration-300"
+								onClick={async () => {
+									await fetch("/api/logout", {
+										method: "POST",
+										credentials: "include",
+									}).then(() => router.push("/"));
+								}}>
+								Logout
+							</button>
+						</div>
+					</div>
+					<p className="text-white mt-4">Click anywhere to close</p>
 				</div>
 			)}
 		</main>

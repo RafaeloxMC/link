@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
 	const { name, password } = await request.json();
 
 	if (!name || !password) {
-		return NextResponse.json({ message: "Missing email or password" }, { status: 405 });
+		return NextResponse.json({ message: "Missing name or password" }, { status: 405 });
 	}
 
 	const hashedPassword = await hash(password, 5);

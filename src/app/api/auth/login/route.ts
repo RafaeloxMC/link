@@ -10,16 +10,16 @@ export async function POST(request: NextRequest) {
 	const { name, password } = await request.json();
 
 	if (!name || !password) {
-		return NextResponse.json({ error: "Missing email or password" }, { status: 400 });
+		return NextResponse.json({ error: "Missing name or password" }, { status: 400 });
 	}
 
 	return await User.findOne({ name: name }).then(async (user) => {
 		if (!user) {
-			return NextResponse.json({ error: "Invalid email or password" }, { status: 401 });
+			return NextResponse.json({ error: "Invalid name or password" }, { status: 401 });
 		}
 		return compare(password, user.password).then(async (result) => {
 			if (!result) {
-				return NextResponse.json({ message: "Invalid email or password" }, { status: 401 });
+				return NextResponse.json({ message: "Invalid name or password" }, { status: 401 });
 			} else {
 				const res = NextResponse.json({ message: "OK" }, { status: 200 });
 
