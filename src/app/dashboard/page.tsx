@@ -226,7 +226,7 @@ export default function Dashboard() {
 							<FaCog />
 						</button>
 					</motion.div>
-					<ContentBox className="w-full h-full min-w-full max-w-full flex flex-col justify-between p-6 bg-gray-800 bg-opacity-10 rounded-2xl shadow-lg" variants={window.innerWidth >= 1024 ? slideInFromRight(1) : slideInFromLeft(1)}>
+					<ContentBox className="w-full h-full min-w-full max-w-full flex flex-col justify-between p-6 bg-gray-800 bg-opacity-10 rounded-2xl shadow-lg" variants={slideInFromLeft(1)}>
 						<h1 className="text-white text-3xl mb-2 border-b border-gray-600 pb-2 w-full">
 							LiNK Information
 						</h1>
