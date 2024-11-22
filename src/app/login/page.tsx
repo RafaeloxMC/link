@@ -47,8 +47,8 @@ export default function Login() {
 				{error && <p className="text-red-500 text-center mb-6 -mt-2">{error}</p>}
 
 				<form className="flex flex-col w-full" onSubmit={submit}>
-					<motion.input type="text" name="name" placeholder="Username" className="mb-4 p-3 rounded-full text-center border border-none focus:outline-none focus:ring-transparent text-white bg-white bg-opacity-20 backdrop-blur-lg" aria-label="Username" initial="hidden" animate="visible" variants={slideInFromLeft(0.3)} />
-					<motion.input type="password" name="password" placeholder="Password" className="mb-4 p-3 rounded-full text-center border border-none focus:outline-none focus:ring-transparent text-white bg-white bg-opacity-20 backdrop-blur-lg" aria-label="Password" initial="hidden" animate="visible" variants={slideInFromRight(0.3)} />
+					<motion.input type="text" name="name" placeholder="Username" className="mb-4 p-3 rounded-full text-center border-none focus:outline-none focus:ring-transparent text-white bg-white bg-opacity-20 backdrop-blur-lg" aria-label="Username" initial="hidden" animate="visible" variants={slideInFromLeft(0.3)} />
+					<motion.input type="password" name="password" placeholder="Password" className="mb-4 p-3 rounded-full text-center border-none focus:outline-none focus:ring-transparent text-white bg-white bg-opacity-20 backdrop-blur-lg" aria-label="Password" initial="hidden" animate="visible" variants={slideInFromRight(0.3)} />
 					<motion.button type="submit" className="p-3 rounded-full backdrop-blur-lg text-white text-center font-semibold focus:outline-none focus:ring-0 bg-white bg-opacity-20 hover:bg-opacity-45 transition duration-300 shadow-lg" initial="hidden" animate="visible" variants={slideInFromLeft(0.3)}>
 						Login
 					</motion.button>
