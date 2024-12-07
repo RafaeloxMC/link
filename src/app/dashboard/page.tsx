@@ -104,6 +104,11 @@ export default function Dashboard() {
 			return setModalError("Invalid characters in LiNK name!");
 		if (modalShortLink.length > 20)
 			return setModalError("LiNK too long! (> 20 characters)");
+
+		if(!modalLongLink.startsWith("http://") && !modalLongLink.startsWith("https://")) {
+			setModalLongLink("http://" + modalLongLink);
+		}
+
 		try {
 			await axios
 				.post(
